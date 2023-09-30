@@ -38,3 +38,33 @@ it('works when you click on the right arrow', function () {
         container.querySelector('img[alt="testing image 2"]')
     ).toBeInTheDocument();
 });
+
+it('works when you click on the left arrow', function () {
+    const { container } = render(
+        <Carousel photos={TEST_IMAGES} title="images for testing" />
+    );
+
+    // Move to the second image using the right arrow
+    const rightArrow = container.querySelector('.bi-arrow-right-circle');
+    fireEvent.click(rightArrow);
+
+    // Expect the second image to show, but not the first
+    expect(
+        container.querySelector('img[alt="testing image 2"]')
+    ).toBeInTheDocument();
+    expect(
+        container.querySelector('img[alt="testing image 1"]')
+    ).not.toBeInTheDocument();
+
+    // Now, move back using the left arrow
+    const leftArrow = container.querySelector('.bi-arrow-left-circle');
+    fireEvent.click(leftArrow);
+
+    // Expect to be back at the first image
+    expect(
+        container.querySelector('img[alt="testing image 1"]')
+    ).toBeInTheDocument();
+    expect(
+        container.querySelector('img[alt="testing image 2"]')
+    ).not.toBeInTheDocument();
+});
