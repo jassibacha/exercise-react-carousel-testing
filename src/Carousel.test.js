@@ -68,3 +68,27 @@ it('works when you click on the left arrow', function () {
         container.querySelector('img[alt="testing image 2"]')
     ).not.toBeInTheDocument();
 });
+
+it('left arrow is hidden on first image', function () {
+    const { container } = render(
+        <Carousel photos={TEST_IMAGES} title="images for testing" />
+    );
+    const leftArrow = container.querySelector('.bi-arrow-left-circle');
+    const rightArrow = container.querySelector('.bi-arrow-right-circle');
+
+    // Expect the second image to show, but not the first
+    expect(
+        container.querySelector('img[alt="testing image 1"]')
+    ).toBeInTheDocument();
+    expect(leftArrow).not.toBeInTheDocument();
+
+    // Now, move forward using the right arrow
+    fireEvent.click(rightArrow);
+    fireEvent.click(rightArrow);
+
+    // Expect to be back at the first image
+    expect(
+        container.querySelector('img[alt="testing image 3"]')
+    ).toBeInTheDocument();
+    expect(rightArrow).not.toBeInTheDocument();
+});

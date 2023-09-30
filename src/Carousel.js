@@ -32,14 +32,26 @@ function Carousel({ photos, title }) {
         <div className="Carousel">
             <h1>{title}</h1>
             <div className="Carousel-main">
-                <i className="bi bi-arrow-left-circle" onClick={goBackwards} />
+                {/* Render the left arrow only if currCardIdx is not 0 */}
+                {currCardIdx !== 0 && (
+                    <i
+                        className="bi bi-arrow-left-circle"
+                        onClick={goBackwards}
+                    />
+                )}
                 <Card
                     caption={currCard.caption}
                     src={currCard.src}
                     currNum={currCardIdx + 1}
                     totalNum={total}
                 />
-                <i className="bi bi-arrow-right-circle" onClick={goForward} />
+                {/* Render the right arrow only if currCardIdx is not the last index */}
+                {currCardIdx !== total - 1 && (
+                    <i
+                        className="bi bi-arrow-right-circle"
+                        onClick={goForward}
+                    />
+                )}
             </div>
         </div>
     );
